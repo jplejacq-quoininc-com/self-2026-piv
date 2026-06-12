@@ -1,0 +1,1450 @@
+<!DOCTYPE html PUBLIC
+  "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>PIV - The Gold Standard for High-Assurance Authentication</title>
+
+    <!-- metadata -->
+    <meta name="generator" content="S5" />
+    <meta name="version" content="S5 1.1" />
+    <meta name="presdate" content="20260617" />
+    <meta name="author" content="Jean Pierre LeJacq" />
+    <meta name="company" content="Quoin Inc" />
+    <!-- configuration parameters -->
+    <meta name="defaultView" content="slideshow" />
+    <meta name="controlVis" content="hidden" />
+    <!-- style sheet links -->
+    <link rel="stylesheet" href="ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+    <link rel="stylesheet" href="ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+    <link rel="stylesheet" href="ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+    <link rel="stylesheet" href="ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+
+    <style type="text/css">
+      /*
+       * pretty.css sets body{font-size:2em} which at 1024x768 gives only
+       * ~576px of usable content height.  Drop to 1.5em and tighten spacing
+       * so slides fit without overflow.
+       */
+      body  { font-size: 1.5em; }
+
+      /* pretty.css li margin-top is 0.75em — far too tall at this scale */
+      .slide li        { margin-top: 0.25em; }
+      .slide ul ul li  { margin: 0.05em; }
+
+      .slide dt { font-weight: bold; }
+
+      /* compact paragraphs */
+      .slide p  { margin: 0.15em 0; }
+
+      /* pretty.css pre is already 70%; push lower and tighten line-height */
+      .slide pre {
+        font-size: 56% !important;
+        line-height: 1.15;
+        margin: 0.2em 0 0.3em 0.3em;
+      }
+
+      /* tables */
+      table           { width: 100%; border-collapse: collapse; font-size: 74%; }
+      td, th          { border: 1px solid #999; padding: 2px 5px; vertical-align: top; }
+      th              { background: #334; color: #fff; }
+
+      /* comparison cells */
+      .yes   { color: #060; font-weight: bold; }
+      .no    { color: #900; font-weight: bold; }
+      .maybe { color: #850; font-weight: bold; }
+
+      /* floated images */
+      img.fr { float: right; margin: 0 0 0.3em 0.6em; }
+
+      /* warning text */
+      .warn  { color: #900; font-weight: bold; }
+
+      /* key-concept highlight box */
+      .keybox {
+        border: 2px solid #446;
+        background: #eef;
+        padding: 0.2em 0.5em;
+        margin: 0.3em 0 0;
+        font-size: 88%;
+      }
+
+      /* ── Flow diagram (CSS/HTML, no SVG) ────────────────── */
+      .flow-diagram { width: 100%; }
+      .flow-step {
+        display: flex; align-items: center;
+        background: #fff4e8;
+        border: 1.5px solid #c05000; border-left: 5px solid #c05000;
+        border-radius: 3px; padding: 2px 5px; font-size: 86%; line-height: 1.4;
+      }
+      .flow-boot { background: #f5f5f5 !important; border-color: #bbb !important; }
+      .flow-arrow { text-align: center; color: #c05000; font-size: 80%; line-height: 1.1; padding: 0; }
+      .flow-n  { min-width: 22px; font-weight: bold; color: #c05000; text-align: center; margin-right: 4px; }
+      .flow-boot .flow-n  { color: #888; }
+      .flow-t  { font-weight: bold; color: #333; min-width: 150px; padding-right: 6px; }
+      .flow-d  { flex: 1; color: #555; }
+      .flow-p  { min-width: 70px; text-align: right; color: #c05000; font-weight: bold; }
+      .flow-pn { color: #aaa !important; font-weight: normal !important; }
+
+      /* Quotes slide two-column portrait layout */
+      table.qt { width: 100%; border-collapse: collapse; }
+      table.qt td { border: none !important; padding: 0 1em !important;
+                    text-align: center; vertical-align: top; width: 50%; }
+    </style>
+
+    <!-- S5 JS -->
+    <script src="ui/default/slides.js" type="text/javascript"></script>
+  </head>
+
+  <body>
+    <div class="layout">
+      <div id="controls"><!-- DO NOT EDIT --></div>
+      <div id="currentSlide"><!-- DO NOT EDIT --></div>
+      <div id="header"></div>
+      <div id="footer">
+        <h1>Quoin Inc. | 2026-jun-17</h1>
+        <h2>PIV - The Gold Standard for High-Assurance Authentication</h2>
+      </div>
+    </div>
+
+
+    <div class="presentation">
+
+      <div class="slide">
+        <h1>
+          PIV — The Gold Standard for High-Assurance Authentication
+        </h1>
+        <h2>SouthEast LinuxFest 2026</h2>
+        <h3>Jean Pierre LeJacq</h3>
+        <h4>Quoin Inc.</h4>
+      </div>
+
+
+      <div class="slide">
+        <h1>About</h1>
+
+        <p>
+          Jean Pierre is co-founder and CTO of Quoin Inc., a software
+          consultancy specializing in open-source software development, DevOps,
+          and security. He volunteers for local Charlotte non-profits partnering
+          with Apparo. He's been presenting at SELF for many years.
+        </p>
+
+        <br/>
+
+        <address>
+          <p>Hurt Hub @ Davidson, DAVIDSON, NC</p>
+          <p>mailto:jeanpierre.lejacq@quoininc.com</p>
+          <p>https://linkedin.com/in/jean-pierre-lejacq</p>
+        </address>
+
+        <img class="fr" src="qrcode-contact.svg" style="width:18%; float:right; margin-top:-6em;" alt="Contact QR code" />
+      </div>
+
+
+      <div class="slide">
+        <h1>Two Thoughts Worth Keeping in Mind</h1>
+
+        <br/>
+        <br/>
+
+        <table class="qt">
+          <tr>
+            <td>
+              <img src="wikimedia-santayana-portrait.jpg"
+                   style="width:500px"
+                   alt="George Santayana" />
+              <blockquote>
+                <p>Those who cannot remember the past are condemned to repeat it.</p>
+                <b>&#8212; George Santayana<br/><i>The Life of Reason</i>, 1905</b>
+              </blockquote>
+            </td>
+
+            <td>
+              <img src="wikimedia-franklin-portrait.svg"
+                   style="width:600px;"
+                   alt="Benjamin Franklin" />
+              <blockquote>
+                <p>An ounce of prevention is worth a pound of cure.</p>
+                <b>&#8212; Benjamin Franklin, 1736</b>
+              </blockquote>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div class="slide">
+        <h1>Outline</h1>
+        <ul>
+          <li>What is PIV?</li>
+          <li>Use cases for PIV</li>
+          <li>Elements of setting up PIV</li>
+          <li>Setting up on Linux</li>
+          <li>Demo!</li>
+          <li>How this compares to alternatives</li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>What is PIV - core components</h1>
+        <img class="fr" src="gov-idmanagement-piv-card.png"
+             style="width:32%;" alt="PIV credential" />
+
+        <dl>
+          <dt>PIV card</dt>
+          <dd>
+            A physical smart card containing an embedded chip, a photograph, and
+            printed identity details.
+          </dd>
+
+          <dt>Cryptographic keys/certificates</dt>
+          <dd>
+            Used for identity verification, data encryption, and signing
+            electronic documents - stored/generated on card.
+          </dd>
+
+          <dt>Biometrics</dt>
+          <dd>
+            Secure storage of the holder's fingerprints and facial images to
+            prevent identity fraud.
+          </dd>
+        </dl>
+      </div>
+
+
+      <div class="slide">
+        <h1>What is PIV - Public Key Infrastructure (PKI)</h1>
+
+        <img class="fr" src="com-ssl-pki-hHierarchy.jpeg"
+             style="width:32%;" alt="PIV credential" />
+
+        <p>
+          Famework of roles, policies, hardware, software, and procedures used
+          to create, manage, distribute, use, store, and revoke digital
+          certificates and manage public-key encryption.
+        </p>
+
+        <ul>
+          <li>
+            Process is the key here, not the technology.
+          </li>
+
+          <li>
+            Full lifecycle considered <em>from start</em> of a certificate.
+          </li>
+
+          <li>
+            Automatic fail-safe backstop on process breakdown.
+          </li>
+
+          <li>
+            Main challenge in adopting PIV.
+          </li>
+        </ul>
+      </div>
+
+
+
+      <!--
+          <ul>
+          <li>
+            Mandated by <abbr title="Homeland Security Presidential
+            Directive">HSPD</abbr>-12 (2004); <abbr title="Federal Information
+            Processing Standards">FIPS</abbr> 201-3 current (2022)
+          </li>
+          <li>
+            Mandatory for federal employees and contractors
+          </li>
+          <li>
+            Built on open standards: X.509, PKCS#11, RSA/ECC — usable by anyone
+          </li>
+          <li>
+            Private keys generated/stored <em>inside</em> hardware; never
+            exported
+          </li>
+        </ul>
+      -->
+
+
+      <!-- PIV origins -->
+      <div class="slide">
+        <h1>PIV: Origins and Motivation</h1>
+        <img class="fr" src="wikimedia-9-11-north-face-south-tower-after-plane-strike.jpeg"
+             style="width:28%;" alt="NIST" />
+        <ul>
+          <li>
+            <strong>Trigger: 9/11 Commission Report (2004)</strong> — hijackers
+            used <em>364 aliases</em> and fraudulent government IDs; no agency
+            could verify another's credentials
+          </li>
+          <li>
+            <strong>HSPD-12, August 2004</strong> — Bush directed all federal
+            agencies to adopt one tamper-resistant credential for
+            <em>physical</em> and <em>logical</em> access
+          </li>
+          <li>
+            <strong>NIST FIPS 201, February 2005</strong> — standard delivered
+            in six months; defined card, chip, certificate profiles, PIN
+            policy, and PKI hierarchy
+          </li>
+          <li>
+            <strong>Scope</strong> — all federal civilian employees and
+            contractors; extended to DoD via the Common Access Card (CAC)
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- 5 -->
+      <div class="slide">
+        <h1>PIV Hardware</h1>
+        <img class="fr" src="yubico-yubikey5.jpg"
+             style="width:24%;" alt="YubiKey 5" />
+        <ul>
+          <li>
+            <strong>Smart cards</strong> — ISO/IEC 7816; USB reader (~$20)
+          </li>
+          <li><strong>USB tokens</strong> — YubiKey 5 (~$55–65),
+              Nitrokey 3 (~$49); no reader needed</li>
+          <li><strong>USB-C + NFC</strong> — wired and contactless tap</li>
+        </ul>
+        <p>Hardware enforces:</p>
+        <ul>
+          <li>
+            Dedicated to only this function - small attack vector.
+          </li>
+
+          <li>
+            Not tied to one computer (for example, TPM).
+          </li>
+
+          <li>
+            PIN lockout after 3–5 failed attempts.
+          </li>
+          <li>
+            Optional touch confirmation (some biometric).
+          </li>
+          <li>
+            Optional on-device key generation provable via attestation
+            certificate.
+          </li>
+          <li>
+            Private keys <em>never leave</em> the device. All crypto operations
+            performed on device.
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Inside a PIV Token: Key Slots</h1>
+        <table>
+          <tr>
+            <th>Slot</th><th>Name</th><th>Primary use</th><th>PIN required</th>
+          </tr>
+          <tr>
+            <td><code>9a</code></td><td>PIV Authentication</td>
+            <td>SSH, TLS client, system login</td><td>Once per session</td>
+          </tr>
+          <tr>
+            <td><code>9c</code></td><td>Digital Signature</td>
+            <td>Document, code, email signing</td><td>Each use</td>
+          </tr>
+          <tr>
+            <td><code>9d</code></td>
+            <td>Key Management</td>
+            <td>Email/data decryption (ECDH)</td>
+            <td>Once per session</td>
+          </tr>
+          <tr>
+            <td><code>9e</code></td><td>Card Authentication</td>
+            <td>Physical access control</td><td>None</td>
+          </tr>
+          <tr>
+            <td><code>f9</code></td><td>Attestation</td>
+            <td>Prove key was generated on-device</td><td>None</td>
+          </tr>
+          <tr>
+            <td><code>82-95</code></td>
+            <td>Retired Key Managements</td>
+            <td>Retain ability to decrypt using expired keys.</td>
+            <td>Once per session</td>
+          </tr>
+          <tr>
+            <td/>
+            <td>Named object containers</td>
+            <td>
+              Photo, fingerprints, ...
+            </td>
+            <td/>
+          </tr>
+        </table>
+
+        <dl>
+          <dt>Contents of each slot</dt>
+          <dd>
+            Key pair, X.509 certificate, and arbritrary binary blobs (Yubico
+            extension).
+          </dd>
+
+          <dt>Supported key types</dt>
+          <dd>
+            RSA 2048/4096, ECC P-256/P-384, Ed25519/X25519
+          </dd>
+        </dl>
+      </div>
+
+
+      <!-- 7 -->
+      <div class="slide">
+        <h1>PIV Authentication Factors</h1>
+        <ul>
+          <li><strong>Something you have</strong> — the physical hardware token</li>
+          <li><strong>Something you know</strong> — the PIN (6–8 chars)</li>
+          <li><strong>Something you are</strong> — on-card biometric fingerprint
+              template (optional, PIV-I high-assurance tier)</li>
+        </ul>
+        <p>Touch policy (cached or per-operation): even a compromised OS
+           cannot sign without a physical tap.</p>
+        <p class="warn">PIN lockout: exhaust retry count (default 3) and card
+           locks. Exhaust PUK and card is permanently blocked.</p>
+      </div>
+
+
+      <div class="slide">
+        <h1>Why PIV? The Threat Landscape</h1>
+        <img class="fr" src="heartbleed.svg"
+             style="width:15%;" alt="Heartbleed" />
+        <ul>
+          <li><strong>Phishing</strong> — fake login pages; still the #1
+              attack vector every year</li>
+          <li><strong>Server-side breach</strong> — password hashes and TOTP
+              seeds stored server-side
+              (Heartbleed, LastPass 2022, Okta 2023, Twilio/Authy 2022)</li>
+          <li><strong>Real-time MITM</strong> — OTP relayed within 30 s
+              by evilginx2 / Modlishka proxies</li>
+          <li><strong>SSH key sprawl</strong> — unmanaged software keys
+              on hundreds of servers; no revocation path</li>
+        </ul>
+        <p>PIV's hardware asymmetric crypto eliminates all of these —
+           no shared secret ever leaves the device.</p>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Cases Overview</h1>
+        <table>
+          <tr><th>Use case</th><th>Protocol / tool</th><th>PIV slot</th></tr>
+          <tr><td>Disk encryption on boot</td>
+            <td>systemd-cryptenroll (LUKS2)</td><td>9a</td>
+          </tr>
+
+          <tr>
+            <td>Device authentication</td>
+            <td>PAM</td>
+            <td>9a</td>
+          </tr>
+
+          <tr>
+            <td>On-premise domain authention</td>
+            <td>Kerberos TGT (PAM / SSD)</td>
+            <td>9a</td>
+          </tr>
+
+          <tr>
+            <td>Cloud domain authention</td>
+            <td>Entra PRT (proprietary)</td>
+            <td>9a</td>
+          </tr>
+
+          <tr><td>sudo privilege escalation</td>
+              <td>pam_pkcs11 / pam_p11</td><td>9a</td></tr>
+          <tr><td>Website / service authentication</td>
+              <td>TLS client certificate (mTLS)</td><td>9a</td></tr>
+          <tr><td>SSH authentication</td>
+              <td>OpenSSH PKCS11Provider</td><td>9a</td></tr>
+          <tr><td>IPsec VPN</td>
+              <td>strongSwan IKEv2 + PKCS#11</td><td>9a</td></tr>
+          <tr><td>Email signing / encryption</td>
+              <td>S/MIME (Thunderbird, Outlook)</td><td>9c / 9d</td></tr>
+          <tr><td>Code and document signing</td>
+              <td>Authenticode, cosign, codesign</td><td>9c</td></tr>
+        </table>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Case: disk decryption on boot</h1>
+        <img class="fr" src="wikimedia-systemd-logo.svg"
+             style="width:26%;" alt="systemd" />
+
+        <p>
+          Unlocks a LUKS2 volume with a PIV token. Tools:
+        </p>
+
+        <table>
+          <tr><th>Function</th><th>Tool</th></tr>
+          <tr>
+            <td>Storage device</td>
+            <td>
+              Any LUKS compatible drive, including OPAL SED drives.
+            </td>
+          </tr>
+
+          <tr>
+            <td>PIV enrollment</td>
+            <td>
+              systemd-cryptenroll
+            </td>
+          </tr>
+
+          <tr>
+            <td>Initramfs generator</td>
+            <td>dracut</td>
+          </tr>
+
+          <tr>
+            <td>Bootloader</td>
+            <td>systemd-boot</td>
+          </tr>
+
+          <tr>
+            <td>Boot UI (splash)</td>
+            <td>Plymouth</td>
+          </tr>
+
+          <tr>
+            <td>LUKS unlocker</td>
+            <td>clevis</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Case: disk decryption on boot</h1>
+
+        <h2>Comparison</h2>
+
+        <table>
+          <tr>
+            <th>Feature</th>
+            <th>Linux/PIV</th>
+            <th>Linux/Password</th>
+            <th>Windows/macOS</th>
+          </tr>
+
+          <tr>
+            <td>Single credential</td>
+            <td>Yes</td>
+            <td>Maybe</td>
+            <td>N/A - no authentication</td>
+          </tr>
+
+          <tr>
+            <td>MFA</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>N/A - no authentication</td>
+          </tr>
+
+          <tr>
+            <td>Unlock not bound to device</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>No (TPM or recovery key stored someplace)</td>
+          </tr>
+        </table>
+
+        <h2>Take aways</h2>
+
+        <ul>
+          <li>
+            Exactly same credential PIV/Pin/Touch with PIV.
+          </li>
+
+          <li>
+            Complete threat model coverage with PIV unlike Windows/macOS.
+          </li>
+
+          <li>
+            LUKS supports fallback on loss of PIV.
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Case: device authentication</h1>
+
+        <h2>
+          Login to device
+        </h2>
+
+        <table>
+          <tr><th>Function</th><th>Tool</th></tr>
+          <tr>
+            <td>Login manager</td>
+            <td>
+              Native console and GDM, SDDM, ...
+            </td>
+          </tr>
+
+          <tr>
+            <td>Authentication framework</td>
+            <td>
+              PAM using libpam-pkcs11
+            </td>
+          </tr>
+        </table>
+
+        <h2>Comparison</h2>
+
+        <table>
+          <tr>
+            <th>Feature</th>
+            <th>Linux</th>
+            <th>Windows</th>
+            <th>macOS</th>
+          </tr>
+
+          <tr>
+            <td>Login</td>
+            <td>Yes</td>
+            <td>Windows Pro / domain joined only, out of the box</td>
+            <td>Yes, out of the box</td>
+          </tr>
+
+          <tr>
+            <td>Screen lock</td>
+            <td>Yes</td>
+            <td>Windows Pro / domain joined only, out of the box</td>
+            <td>Yes, out of the box</td>
+          </tr>
+
+          <tr>
+            <td>Fallback</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Maybe</td>
+          </tr>
+
+          <tr>
+            <td>Crypto</td>
+            <td>RSA, NIST, 25519</td>
+            <td>RSA</td>
+            <td>RSA</td>
+          </tr>
+        </table>
+
+        <h2>Take aways</h2>
+
+        <ul>
+          <li>
+            True MFA authentication on all platforms.
+          </li>
+
+          <li>
+            Single credential for multiple devices.
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Case: privilege elevation</h1>
+
+        <h2>
+          Temporary elevation of privilege to root or other role accounts.
+        </h2>
+
+        <table>
+          <tr><th>Function</th><th>Tool</th></tr>
+          <tr>
+            <td>Utility</td>
+            <td>
+              sudo, run0, doas, ...
+            </td>
+          </tr>
+
+          <tr>
+            <td>Authentication framework</td>
+            <td>
+              PAM using libpam-pkcs11
+            </td>
+          </tr>
+        </table>
+
+        <h2>Comparison</h2>
+
+        <table>
+          <tr>
+            <th>Feature</th>
+            <th>Linux</th>
+            <th>Windows</th>
+            <th>macOS</th>
+          </tr>
+
+          <tr>
+            <td>Elevation</td>
+            <td>MFA with caching</td>
+            <td>UAE, no MFA</td>
+            <td>MFA with caching</td>
+          </tr>
+        </table>
+
+        <h2>Take aways</h2>
+
+        <ul>
+          <li>
+            True MFA authentication on Linux and macOS.
+          </li>
+
+          <li>
+            Single credential for multiple devices.
+          </li>
+
+          <li>
+            True MFA for every privilege elevation - Token presence + PIN
+          </li>
+
+          <li>
+            Audit log ties every <code>sudo</code> to a certificate serial
+            number
+          </li>
+
+          <li>
+            Works alongside SSSD for centrally managed subject mappings
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Case: SSH Authentication</h1>
+        <img class="fr" src="openssh-logo.png"
+             style="width:20%;" alt="OpenSSH" />
+
+        <h2>OpenSSH supports following hardware based MFA:</h2>
+
+        <dl>
+          <dt>PIV</dt>
+          <dd>
+            Support since 2010 through PKCS#11 middleware library.
+          </dd>
+
+          <dt>FIDO2/U2F</dt>
+          <dd>
+            Support since 2020 through lbfido2 library.
+          </dd>
+
+          <dt>OpenPGP</dt>
+          <dd>
+            Support since 2014 using gpg-agent as a replacement for
+            ssh-agent. Does not support modern OpenSSH.
+          </dd>
+        </dl>
+      </div>
+
+
+      <div class="slide">
+        <h1>Use Case: SSH Authentication</h1>
+
+        <h2>Comparison</h2>
+
+        <table>
+          <tr>
+            <th>Feature</th>
+            <th>Password</th>
+            <th>PIV</th>
+            <th>FIDO (security token)</th>
+            <th>FIDO (TPM)</th>
+          </tr>
+
+          <tr>
+            <td>Key types</td>
+            <td>N/A</td>
+            <td>RSA, NIST, Ed25519</td>
+            <td>NIST P-256, Ed25519</td>
+            <td>NIST P-256, Ed25519</td>
+          </tr>
+
+          <tr>
+            <td>Hardware Backed</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Physical presence</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Bound to device</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Escrowable</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Cloud Synced</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>OpenSSH Certificate</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>CA Issued</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+        </table>
+
+        <h2>Take aways</h2>
+
+        <ul>
+          <li>
+            FIDO by design are non-escrowable.
+          </li>
+
+          <li>
+            FIDO by design self issued but this breaks down if OpenSSH
+            certificates also used.
+          </li>
+        </ul>
+      </div>
+
+
+
+
+
+
+      <div class="slide">
+        <h1>Use Case: Website / Service Authentication</h1>
+        <ul>
+          <li><strong>Entra ID Certificate-Based Auth (CBA)</strong> —
+              authenticate to Entra ID with your PIV cert; Entra ID then
+              federates your identity (SAML / OIDC) to any connected SaaS —
+              Microsoft 365, Salesforce, AWS, ServiceNow, and thousands more</li>
+          <li><strong>Other enterprise IdPs</strong> — Okta, Ping, and
+              Duo all support certificate auth as a first factor</li>
+          <li><strong>Internal dashboards</strong> — nginx / Caddy / Traefik
+              with <code>ssl_verify_client on</code> and CA trust store</li>
+          <li><strong>Kubernetes API</strong> — client cert via PKCS#11
+              engine in kubectl</li>
+          <li><strong>HashiCorp Vault</strong> — cert auth method;
+              cert maps to Vault policies</li>
+        </ul>
+        <div class="keybox">
+          With Entra ID CBA as the IdP, PIV covers virtually the entire
+          enterprise SaaS estate without requiring each app to support mTLS.
+        </div>
+      </div>
+
+
+      <!-- 15 -->
+      <div class="slide">
+        <h1>Use Case: IPsec VPN</h1>
+        <p>strongSwan IKEv2 + PKCS#11: PIV slot 9a signs the IKE handshake —
+           certificate-based mutual authentication for every tunnel.</p>
+        <pre>
+# /etc/swanctl/conf.d/remote-access.conf
+connections {
+  remote_access {
+    version = 2
+    local  { auth = pubkey; certs = /etc/swanctl/x509/gw.pem }
+    remote { auth = pubkey; id = "%any" }
+    children { tunnel { ... } }
+  }
+}
+# Load credentials from PKCS#11 token
+$ swanctl --load-creds --pkcs11</pre>
+        <ul>
+          <li>Each user's X.509 cert identifies them; CA chain is the trust root</li>
+          <li>Revoking a cert (CRL/OCSP) instantly denies VPN re-connection</li>
+          <li>Suite B / RFC 7427 ECDSA-P384 — government-grade crypto</li>
+        </ul>
+      </div>
+
+
+      <!-- 16 -->
+      <div class="slide">
+        <h1>IPsec vs. WireGuard: The Lifecycle Gap</h1>
+        <p>WireGuard by design has <strong>no PKI</strong>:</p>
+        <ul>
+          <li>Static Curve25519 public keys — never expire, never revoke automatically</li>
+          <li>Removing access = hand-edit every server's <code>[Peer]</code> config</li>
+          <li>A key is not bound to a person or certificate — no audit identity</li>
+        </ul>
+        <p>The management vacuum spawned an ecosystem, each reinventing PKI:</p>
+        <table style="font-size:72%;">
+          <tr><th>Tool</th><th>What it adds back</th></tr>
+          <tr><td>Tailscale / Headscale</td>
+              <td>Identity via Google/GitHub/OIDC; node expiry; key coordination</td></tr>
+          <tr><td>NetBird / Firezone</td>
+              <td>IdP integration (Okta, Entra ID); OIDC enrollment; access policies</td></tr>
+          <tr><td>Netmaker</td>
+              <td>GUI key distribution; user management; ACL rules</td></tr>
+        </table>
+        <div class="keybox">
+          Every WireGuard management tool is independently recreating enrollment,
+          identity binding, revocation, and expiry — the core of what IPsec + X.509
+          solved with open, interoperable standards 25 years ago.
+        </div>
+      </div>
+
+
+      <!-- 17 -->
+      <div class="slide">
+        <h1>Use Case: S/MIME Email Signing and Encryption</h1>
+        <ul>
+          <li><strong>Slot 9c</strong> signs outgoing messages —
+              the CA chain proves it was really you</li>
+          <li><strong>Slot 9d</strong> decrypts messages encrypted
+              to your public key</li>
+          <li>Works natively in Thunderbird, Apple Mail, Outlook — load
+              the PKCS#11 module once and it is transparent</li>
+          <li>Non-repudiation: signing cert serial is logged; CA vouches
+              for identity at time of signing</li>
+        </ul>
+        <p>Code and document signing (slot 9c):</p>
+        <ul>
+          <li>Windows Authenticode — <code>signtool.exe</code>
+              via PKCS#11 MiniDriver</li>
+          <li>Container images — <code>cosign sign --key pkcs11:...</code></li>
+          <li>macOS — <code>codesign</code> via Smart Card Keychain</li>
+          <li>PDFs — <code>jsignpdf</code>; LibreOffice macro signing</li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>PIV on macOS</h1>
+        <p>Native PIV support via CryptoTokenKit (macOS 10.15+) —
+           no third-party middleware.</p>
+        <ul>
+          <li>Plug in YubiKey; cert appears in <strong>Keychain Access</strong>
+              under Smart Card token</li>
+          <li>Safari, Mail (S/MIME), and Xcode use it transparently</li>
+          <li>Smart Card Login: System Settings → Users &amp; Groups
+              → Smart Card pairing (<code>sc_auth pair</code>)</li>
+          <li>Enforce token-only login:
+              <code>defaults write .../com.apple.security.smartcard
+              enforceSmartCard -bool true</code></li>
+          <li>SSH: <code>PKCS11Provider /usr/lib/ssh-keychain.dylib</code></li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>PIV on Windows</h1>
+        <p>Built-in smart card support since Vista; no extra software for
+           YubiKey or Nitrokey.</p>
+        <ul>
+          <li><strong>MiniDriver model</strong> — plug in; cert appears
+              in Edge, Outlook, PuTTY-SC automatically</li>
+          <li><strong>AD Smart Card Logon</strong> — Group Policy:
+              "Require smart card"; needs Smart Card Logon EKU + UPN SAN</li>
+          <li><strong>Entra ID CBA</strong> — certificate-based auth
+              to cloud without ADFS</li>
+          <li><strong>RDP forwarding</strong> — <code>mstsc /smartcard</code>
+              forwards PIV to Remote Desktop sessions</li>
+          <li><strong>OpenSSH for Windows</strong> —
+              <code>SecurityKeyProvider</code> in <code>~\.ssh\config</code></li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Certificate Lifecycle Management</h1>
+        <table>
+          <tr><th>Phase</th><th>What happens</th><th>Tooling</th></tr>
+          <tr>
+            <td><strong>Enrollment</strong></td>
+            <td>Identity proofed; CA issues cert with expiry and Subject DN</td>
+            <td>step-ca, EJBCA, AD CS, SCEP</td>
+          </tr>
+          <tr>
+            <td><strong>Renewal</strong></td>
+            <td>New key generated on-device; new cert issued before expiry</td>
+            <td>step-ca auto-renew, cron + ykman</td>
+          </tr>
+          <tr>
+            <td><strong>Revocation</strong></td>
+            <td>CA marks cert invalid; <em>all</em> relying services refuse it</td>
+            <td>CRL, OCSP, CA admin console</td>
+          </tr>
+          <tr>
+            <td><strong>Loss / offboarding</strong></td>
+            <td>Revoke cert; issue replacement on spare token if needed</td>
+            <td>One CA action — no per-service cleanup</td>
+          </tr>
+        </table>
+        <div class="keybox">
+          One revocation at the CA instantly blocks: SSH, VPN, disk unlock,
+          sudo, websites, email signing — all services, simultaneously.
+        </div>
+      </div>
+
+
+      <div class="slide">
+        <h1>Simple PKI: OpenSSL CA</h1>
+
+        <img class="fr" src="quoininc-qicred00-400x300.jpeg"
+             style="width:20%;" alt="OpenSSH" />
+
+        <p>
+          Commercial CA not needed — an OpenSSL CA is sufficient for a small
+          team.
+        </p>
+
+        <ul>
+          <li>
+            This is definitely the hard part of PIV. But it's defintely a
+            <em>pay me know or pay me later</em> situation.
+          </li>
+
+          <li>
+            Configuation is all text based and easily source controlled.
+          </li>
+
+          <li>
+            OpenSSL documentation is quite good and accurate to the
+            implmentation.
+          </li>
+
+          <li>
+            Portability is the hardest part. Windows and macOS documentation is
+            dreadful. Many things are broken.
+          </li>
+
+          <li>
+            Design and architecture of the PKI is quite thin, lot's of bad
+            advice, and AI agents are dreadful at this particular task.
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Simple PKI: Certificate Hierarchy</h1>
+
+        <pre>
+Root
+|- Intermediate for PIV
+|  |- Jean Pierre
+|  |- Jane Doe
+|  `- ...
+`- Intermediate for Servers
+   |- www.example.org
+   |- vpn.example.org
+   `- ...
+        </pre>
+
+        <h2>Recommendations</h2>
+
+        <ul>
+          <li>
+            Keep things as simple as possible while still enforcing required
+            policies.
+          </li>
+
+          <li>
+            Top level of hierarchy should be organized on key types. Windows and
+            macOS cannot handle hierarchy with mixed types.
+          </li>
+
+          <li>
+            Use zlint (https://github.com/zmap/zlint) from very start.
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Demo!</h1>
+
+        <p><em>Demo gods willing&#8230;</em></p>
+      </div>
+
+
+      <div class="slide">
+        <h1>Authentication Landscape Overview</h1>
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Phishing resistant</th>
+            <th>Key never leaves HW</th>
+            <th>Identity-bound</th>
+            <th>Cross-platform</th>
+          </tr>
+          <tr>
+            <td>PIV / Smart Card</td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="yes">Yes (X.509)</span></td>
+            <td><span class="yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Passkey — device-bound HW key (YubiKey FIDO2)</td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Passkey — platform (TPM / Secure Enclave)</td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="yes">Yes*</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="maybe">Per device</span></td>
+          </tr>
+          <tr>
+            <td>Passkey — synced (iCloud / Google)</td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="no">No — key leaves device</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>Windows Hello for Business</td>
+            <td><span class="yes">Yes</span></td>
+            <td><span class="yes">Yes (TPM)</span></td>
+            <td><span class="maybe">Via Entra ID</span></td>
+            <td><span class="no">Windows only</span></td>
+          </tr>
+          <tr>
+            <td>Push MFA (Duo, Okta Verify, MS Authenticator)</td>
+            <td><span class="no">No — MFA fatigue</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="yes">Yes</span></td>
+          </tr>
+          <tr>
+            <td>TOTP (Authenticator App)</td>
+            <td><span class="no">No</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="no">No</span></td>
+            <td><span class="yes">Yes</span></td>
+          </tr>
+        </table>
+      </div>
+
+
+      <!-- 26 -->
+      <div class="slide">
+        <h1>Passkey Tiers: Hardware vs. Synced</h1>
+        <p><strong>Device-bound hardware passkey (YubiKey FIDO2, Nitrokey)</strong></p>
+        <ul>
+          <li>Private key generated on-device; <em>never exported</em> —
+              same hardware guarantee as PIV</li>
+          <li>Lose the key = lose access to every registered service;
+              no cloud recovery</li>
+          <li>Primarily web authentication; limited SSH / non-web support</li>
+        </ul>
+        <p><strong>Synced passkey (iCloud Keychain, Google Password Manager,
+           1Password)</strong></p>
+        <ul>
+          <li class="warn">Private key material is <strong>exported from the
+              device and stored in the cloud provider's infrastructure</strong></li>
+          <li>Security depends on: your Apple/Google account password, account
+              recovery, and the cloud provider's own security posture</li>
+          <li>Convenient multi-device recovery</li>
+        </ul>
+      </div>
+
+
+      <!-- 27 -->
+      <div class="slide">
+        <h1>PIV vs. Passkeys: Core Differences</h1>
+        <img class="fr" src="wikimedia-fido-alliance-logo.svg"
+             style="width:20%;" alt="FIDO Alliance" />
+        <table>
+          <tr><th></th><th>PIV</th><th>HW passkey</th><th>Synced passkey</th></tr>
+          <tr>
+            <td><strong>Key protection</strong></td>
+            <td>Hardware; never leaves</td>
+            <td>Hardware; never leaves</td>
+            <td class="warn">Leaves device → cloud</td>
+          </tr>
+          <tr>
+            <td><strong>What it proves</strong></td>
+            <td>Your identity (X.509)</td>
+            <td>Device possession</td>
+            <td>Account + device</td>
+          </tr>
+          <tr>
+            <td><strong>SSH / disk / VPN</strong></td>
+            <td>Yes — native</td>
+            <td>Very limited</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td><strong>Email encryption</strong></td>
+            <td>Yes — S/MIME</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td><strong>Browser UX</strong></td>
+            <td>
+              All browsers (Win/macOS natively; Linux: NSS module)
+            </td>
+            <td>All browsers — zero config</td>
+            <td>All browsers — zero config</td>
+          </tr>
+          <tr>
+            <td><strong>Recovery</strong></td>
+            <td>Backup token (same cert)</td>
+            <td>Re-register each service</td>
+            <td>Cloud account recovery</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <!-- 28 -->
+      <div class="slide">
+        <h1>Self-Provisioning vs. Central Provisioning</h1>
+        <table>
+          <tr>
+            <th></th>
+            <th>Self-provisioning (Passkeys)</th>
+            <th>Central provisioning (PIV)</th>
+          </tr>
+          <tr>
+            <td><strong>Who controls enrollment</strong></td>
+            <td>User — register any device, any time</td>
+            <td>IT / CA — identity proofed before issuance</td>
+          </tr>
+          <tr>
+            <td><strong>Identity verification</strong></td>
+            <td>None — anyone with the device can enroll</td>
+            <td>CA verifies who you are before issuing cert</td>
+          </tr>
+          <tr>
+            <td><strong>Revocation</strong></td>
+            <td>Per-service; no single point of control</td>
+            <td>One CA action removes all access universally</td>
+          </tr>
+          <tr>
+            <td><strong>Backup / recovery</strong></td>
+            <td>User-managed recovery codes or cloud sync</td>
+            <td>Admin issues replacement cert to spare token</td>
+          </tr>
+          <tr>
+            <td><strong>Overhead</strong></td>
+            <td>Zero admin; instant rollout</td>
+            <td>PKI admin required; enrollment process</td>
+          </tr>
+          <tr>
+            <td><strong>Best for</strong></td>
+            <td>Consumer apps, BYOD, SaaS, individual use</td>
+            <td>Enterprise, regulated industries, government</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <!-- 29 -->
+      <div class="slide">
+        <h1>Lifecycle: Where PIV Wins</h1>
+        <table>
+          <tr><th>Scenario</th><th>PIV</th><th>Passkeys</th></tr>
+          <tr>
+            <td>Employee leaves</td>
+            <td>Revoke cert → all access gone instantly</td>
+            <td>Remove from each service independently</td>
+          </tr>
+          <tr>
+            <td>Token lost / stolen</td>
+            <td>Revoke cert; issue replacement on spare token</td>
+            <td>Recovery code or re-register at each service</td>
+          </tr>
+          <tr>
+            <td>Credential expiry</td>
+            <td>Cert expires; re-proofing required</td>
+            <td>No expiry by default</td>
+          </tr>
+          <tr>
+            <td>Audit trail</td>
+            <td>Every auth logged with cert serial + CA</td>
+            <td>Per-service; no unified trail</td>
+          </tr>
+          <tr>
+            <td>Compliance</td>
+            <td>FIPS 201, FedRAMP High, DoD 8140</td>
+            <td>No direct mapping to most mandates</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <!-- 30 -->
+      <div class="slide">
+        <h1>PIV vs. Windows Hello for Business</h1>
+        <p>WHfB is Microsoft's <em>enterprise platform passkey</em>:
+           private key lives in the <strong>device TPM and cannot leave it</strong>.
+           Like a synced passkey without the cloud sync — but equally device-locked.</p>
+        <table>
+          <tr><th></th><th>PIV</th><th>Windows Hello for Business</th></tr>
+          <tr>
+            <td><strong>Platform</strong></td>
+            <td>Linux, macOS, Windows, *BSD</td>
+            <td>Windows 10 / 11 only</td>
+          </tr>
+          <tr>
+            <td><strong>Key location</strong></td>
+            <td>Portable hardware token — take it anywhere</td>
+            <td class="warn">Locked in device TPM — not portable</td>
+          </tr>
+          <tr>
+            <td><strong>Change machine</strong></td>
+            <td>Plug token into any machine; works immediately</td>
+            <td>Must re-enrol on each new device via Entra ID</td>
+          </tr>
+          <tr>
+            <td><strong>Infrastructure</strong></td>
+            <td>Any PKCS#11 toolchain; open standards</td>
+            <td>Active Directory / Entra ID required</td>
+          </tr>
+          <tr>
+            <td><strong>SSH / Linux</strong></td>
+            <td>Native — first class</td>
+            <td>Awkward; needs extra tooling</td>
+          </tr>
+          <tr>
+            <td><strong>Open standard</strong></td>
+            <td>Yes — FIPS 201 / PKCS#11</td>
+            <td>No — Microsoft proprietary stack</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <!-- 31 -->
+      <div class="slide">
+        <h1>PIV vs. TOTP / OTP Authenticators</h1>
+        <p>Structural TOTP weaknesses that PIV eliminates:</p>
+        <ul>
+          <li><strong>Real-time phishable</strong> — MITM proxies relay
+              OTPs within the 30 s window; the user never notices</li>
+          <li><strong>Shared secret on server</strong> — TOTP seeds stored
+              server-side; one breach compromises every user
+              (Twilio/Authy 2022: 33 M seeds exposed)</li>
+          <li><strong>No identity binding</strong> — OTP proves knowledge
+              of a seed, not hardware-backed identity</li>
+          <li><strong>Scope limited to login</strong> — cannot sign, encrypt,
+              unlock disks, or authenticate VPN/SSH</li>
+        </ul>
+        <p>TOTP is far better than passwords alone.
+           Use it where PIV or FIDO2 are unavailable.</p>
+      </div>
+
+
+      <!-- 32 -->
+      <div class="slide">
+        <h1>When to Choose PIV</h1>
+        <p><strong>Choose PIV (central provisioning) when:</strong></p>
+        <ul>
+          <li>One revocation must remove access everywhere immediately</li>
+          <li>Non-web protocols: SSH, IPsec, disk encryption, PAM, sudo</li>
+          <li>S/MIME, code / document signing with X.509 chain of trust</li>
+          <li>Compliance: FIPS 201, FedRAMP High, DoD 8140, HIPAA</li>
+        </ul>
+        <p><strong>Choose hardware passkeys (self-provisioning) when:</strong></p>
+        <ul>
+          <li>Consumer or personal apps without an enterprise IdP in the path</li>
+          <li>Hardware key isolation needed but X.509 identity is not required</li>
+        </ul>
+        <p><strong>Avoid synced passkeys when:</strong></p>
+        <ul>
+          <li>Private key exposure to a cloud provider is unacceptable</li>
+        </ul>
+        <div class="keybox">
+          A YubiKey 5 runs PIV + FIDO2 simultaneously — use each where it fits.
+        </div>
+      </div>
+
+
+      <div class="slide">
+        <h1>Why PIV Is Not More Widely Used</h1>
+        <ul>
+          <li><strong>Setup complexity</strong> — PKI infrastructure, CA, enrolment
+              workflows, and admin training before a single user logs in</li>
+          <li><strong>Hardware cost</strong> — $50–80 per token; card readers add
+              cost and support burden</li>
+          <li><strong>Lockout risk</strong> — lost token or exhausted PIN/PUK
+              locks the user out; spare-token policy is essential</li>
+          <li><strong>No native mobile path</strong> — NFC is awkward;
+              Derived PIV (SP 800-157) partially fills the gap</li>
+          <li><strong>Higher friction</strong> — carry hardware, remember PINs;
+              passkeys feel invisible by comparison</li>
+        </ul>
+      </div>
+
+
+      <div class="slide">
+        <h1>Summary</h1>
+        <ul>
+          <li>
+            <strong>Lifecycle management</strong>
+            — passkeys and WireGuard have no standard revocation;
+            PIV has CA-enforced enrollment, renewal, revocation, and audit
+            trail since 2005
+          </li>
+          <li>
+            <strong>Verified identity</strong>
+            — passkeys prove device possession; WireGuard keys are anonymous;
+            PIV certificates carry who you are
+          </li>
+          <li>
+            <strong>Single credential, comprehensive coverage</strong>
+            — disk decryption, login, SSO, sudo, SSH, S/MIME, and code
+            signing with one revocation
+          </li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <img class="fr" src="self-2026-piv-qr.png"
+             style="width:20%;" alt="git repo" />
+
+        <h1>Questions?</h1>
+        <p>Jean Pierre LeJacq</p>
+        <p>jeanpierre.lejacq@quoininc.com</p>
+        <p>Quoin Inc. &#8212; quoininc.com</p>
+        <p>Slides: github.com/quoininc/self-2026-piv</p>
+      </div>
+    </div>
+  </body>
+</html>
