@@ -134,12 +134,19 @@
         <br/>
 
         <address>
+          <p>
+            Jean Pierre LeJacq
+          </p>
+          <p>
+            Quoin Inc.
+          </p>
           <p>Hurt Hub @ Davidson, DAVIDSON, NC</p>
           <p>mailto:jeanpierre.lejacq@quoininc.com</p>
           <p>https://linkedin.com/in/jean-pierre-lejacq</p>
         </address>
 
         <img class="fr" src="qrcode-contact.svg" style="width:18%; float:right; margin-top:-6em;" alt="Contact QR code" />
+
       </div>
 
 
@@ -180,8 +187,6 @@
         <ul>
           <li>What is PIV?</li>
           <li>Use cases for PIV</li>
-          <li>Elements of setting up PIV</li>
-          <li>Setting up on Linux</li>
           <li>Demo!</li>
           <li>How this compares to alternatives</li>
         </ul>
@@ -247,29 +252,6 @@
       </div>
 
 
-
-      <!--
-          <ul>
-          <li>
-            Mandated by <abbr title="Homeland Security Presidential
-            Directive">HSPD</abbr>-12 (2004); <abbr title="Federal Information
-            Processing Standards">FIPS</abbr> 201-3 current (2022)
-          </li>
-          <li>
-            Mandatory for federal employees and contractors
-          </li>
-          <li>
-            Built on open standards: X.509, PKCS#11, RSA/ECC — usable by anyone
-          </li>
-          <li>
-            Private keys generated/stored <em>inside</em> hardware; never
-            exported
-          </li>
-        </ul>
-      -->
-
-
-      <!-- PIV origins -->
       <div class="slide">
         <h1>PIV: Origins and Motivation</h1>
         <img class="fr" src="wikimedia-9-11-north-face-south-tower-after-plane-strike.jpeg"
@@ -303,6 +285,9 @@
         <h1>PIV Hardware</h1>
         <img class="fr" src="yubico-yubikey5.jpg"
              style="width:24%;" alt="YubiKey 5" />
+
+        <h2>Options</h2>
+
         <ul>
           <li>
             <strong>Smart cards</strong> — ISO/IEC 7816; USB reader (~$20)
@@ -311,7 +296,9 @@
               Nitrokey 3 (~$49); no reader needed</li>
           <li><strong>USB-C + NFC</strong> — wired and contactless tap</li>
         </ul>
-        <p>Hardware enforces:</p>
+
+        <h2>Hardware enforces</h2>
+
         <ul>
           <li>
             Dedicated to only this function - small attack vector.
@@ -538,7 +525,7 @@
           </tr>
 
           <tr>
-            <td>Single credential</td>
+            <td>Same credentials as other user case</td>
             <td>Yes</td>
             <td>Maybe</td>
             <td>N/A - no authentication</td>
@@ -738,7 +725,7 @@
 
           <dt>FIDO2/U2F</dt>
           <dd>
-            Support since 2020 through lbfido2 library.
+            Support since 2020 through libfido2 library.
           </dd>
 
           <dt>OpenPGP</dt>
@@ -844,59 +831,68 @@
       </div>
 
 
-
-
-
-
       <div class="slide">
-        <h1>Use Case: Website / Service Authentication</h1>
-        <ul>
-          <li><strong>Entra ID Certificate-Based Auth (CBA)</strong> —
-              authenticate to Entra ID with your PIV cert; Entra ID then
-              federates your identity (SAML / OIDC) to any connected SaaS —
-              Microsoft 365, Salesforce, AWS, ServiceNow, and thousands more</li>
-          <li><strong>Other enterprise IdPs</strong> — Okta, Ping, and
-              Duo all support certificate auth as a first factor</li>
-          <li><strong>Internal dashboards</strong> — nginx / Caddy / Traefik
-              with <code>ssl_verify_client on</code> and CA trust store</li>
-          <li><strong>Kubernetes API</strong> — client cert via PKCS#11
-              engine in kubectl</li>
-          <li><strong>HashiCorp Vault</strong> — cert auth method;
-              cert maps to Vault policies</li>
-        </ul>
-        <div class="keybox">
-          With Entra ID CBA as the IdP, PIV covers virtually the entire
-          enterprise SaaS estate without requiring each app to support mTLS.
-        </div>
+        <h1>Use Case: VPN</h1>
+
+        <h2>Options</h2>
+
+        <table>
+          <tr>
+            <th>Feature</th>
+            <th>IPSec</th>
+            <th>OpenVPN</th>
+            <th>Wireguard</th>
+          </tr>
+
+          <tr>
+            <td>Platfom</td>
+            <td>Native on Linux, Windows, macOS</td>
+            <td>Available on all</td>
+            <td>Available on all</td>
+          </tr>
+
+          <tr>
+            <td>PKI</td>
+            <td>X.509 Standard</td>
+            <td>X.509 Quasi</td>
+            <td>None - just raw keys</td>
+          </tr>
+
+          <tr>
+            <td>PIV</td>
+            <td>Yes, on all platforms</td>
+            <td>Kind of</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Protocol/Ports</td>
+            <td>UDP/IP dedicated ports</td>
+            <td>TCP HTTPS only</td>
+            <td>UDP dedicated port</td>
+          </tr>
+
+          <tr>
+            <td>Speed</td>
+            <td>Fastest</td>
+            <td>Slowest</td>
+            <td>Fast</td>
+          </tr>
+
+          <tr>
+            <td>Key type</td>
+            <td>RSA, NIST, Ed25519</td>
+            <td>RSA, NIST, Ed25519</td>
+            <td>Ed25519</td>
+          </tr>
+        </table>
+
+        <p>
+          On linux, strongSWAN and LibreSWAN are the primary options.
+        </p>
       </div>
 
 
-      <!-- 15 -->
-      <div class="slide">
-        <h1>Use Case: IPsec VPN</h1>
-        <p>strongSwan IKEv2 + PKCS#11: PIV slot 9a signs the IKE handshake —
-           certificate-based mutual authentication for every tunnel.</p>
-        <pre>
-# /etc/swanctl/conf.d/remote-access.conf
-connections {
-  remote_access {
-    version = 2
-    local  { auth = pubkey; certs = /etc/swanctl/x509/gw.pem }
-    remote { auth = pubkey; id = "%any" }
-    children { tunnel { ... } }
-  }
-}
-# Load credentials from PKCS#11 token
-$ swanctl --load-creds --pkcs11</pre>
-        <ul>
-          <li>Each user's X.509 cert identifies them; CA chain is the trust root</li>
-          <li>Revoking a cert (CRL/OCSP) instantly denies VPN re-connection</li>
-          <li>Suite B / RFC 7427 ECDSA-P384 — government-grade crypto</li>
-        </ul>
-      </div>
-
-
-      <!-- 16 -->
       <div class="slide">
         <h1>IPsec vs. WireGuard: The Lifecycle Gap</h1>
         <p>WireGuard by design has <strong>no PKI</strong>:</p>
@@ -919,6 +915,30 @@ $ swanctl --load-creds --pkcs11</pre>
           Every WireGuard management tool is independently recreating enrollment,
           identity binding, revocation, and expiry — the core of what IPsec + X.509
           solved with open, interoperable standards 25 years ago.
+        </div>
+      </div>
+
+
+
+      <div class="slide">
+        <h1>Use Case: Website / Service Authentication</h1>
+        <ul>
+          <li><strong>Entra ID Certificate-Based Auth (CBA)</strong> —
+              authenticate to Entra ID with your PIV cert; Entra ID then
+              federates your identity (SAML / OIDC) to any connected SaaS —
+              Microsoft 365, Salesforce, AWS, ServiceNow, and thousands more</li>
+          <li><strong>Other enterprise IdPs</strong> — Okta, Ping, and
+              Duo all support certificate auth as a first factor</li>
+          <li><strong>Internal dashboards</strong> — nginx / Caddy / Traefik
+              with <code>ssl_verify_client on</code> and CA trust store</li>
+          <li><strong>Kubernetes API</strong> — client cert via PKCS#11
+              engine in kubectl</li>
+          <li><strong>HashiCorp Vault</strong> — cert auth method;
+              cert maps to Vault policies</li>
+        </ul>
+        <div class="keybox">
+          With Entra ID CBA as the IdP, PIV covers virtually the entire
+          enterprise SaaS estate without requiring each app to support mTLS.
         </div>
       </div>
 
@@ -1420,17 +1440,17 @@ Root
             <strong>Lifecycle management</strong>
             — passkeys and WireGuard have no standard revocation;
             PIV has CA-enforced enrollment, renewal, revocation, and audit
-            trail since 2005
+            trail.
           </li>
           <li>
             <strong>Verified identity</strong>
             — passkeys prove device possession; WireGuard keys are anonymous;
-            PIV certificates carry who you are
+            PIV certificates carry who you are.
           </li>
           <li>
             <strong>Single credential, comprehensive coverage</strong>
             — disk decryption, login, SSO, sudo, SSH, S/MIME, and code
-            signing with one revocation
+            signing with one revocation. Nothing comes close.
           </li>
         </ul>
       </div>
